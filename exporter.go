@@ -54,8 +54,8 @@ func createDatabase(ctx context.Context, cfg *Config) error {
 	defer func() {
 		_ = db.Close()
 	}()
-  query := "CREATE DATABASE IF NOT EXISTS ?"
-  _, err = db.ExecContext(ctx, query, defaultDatabase)
+	query := fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s", defaultDatabase)
+	_, err = db.ExecContext(ctx, query)
 	if err != nil {
 		return fmt.Errorf("create database: %w", err)
 	}
@@ -70,11 +70,12 @@ func createMatrixTable(ctx context.Context, cfg *Config, db *sql.DB) error {
     StartTime DateTime,
     MetricUnit String CODEC(ZSTD(1)),
     StartTimeUnix DateTime64(9) CODEC(Delta, ZSTD(1)),
-	  TimeUnix DateTime64(9) CODEC(Delta, ZSTD(1)),
+    TimeUnix DateTime64(9) CODEC(Delta, ZSTD(1)),
     Value Float64 CODEC(ZSTD(1))
-  ) ENGINE = MergeTree
+  ) 
+  ENGINE = MergeTree
   PARTITION BY toDate(TimeUnix)
-  ORDER BY (ServiceName, MetricName, Attributes, toUnixTimestamp64Nano(TimeUnix));
+  ORDER BY (MetricName, TimeUnix);
   `
 
 	// use default database to create new database

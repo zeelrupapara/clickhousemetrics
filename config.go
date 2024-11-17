@@ -20,7 +20,7 @@ type Config struct {
 const defaultEndpoint = "tcp://localhost:9000"
 const defaultUsername = "otel"
 const defaultPassword = "otel"
-const defaultDatabase = "otel"
+const defaultDatabase = "default"
 
 func (cfg *Config) buildDSN() (string, error) {
 	dsnURL, err := url.Parse(cfg.Endpoint)
