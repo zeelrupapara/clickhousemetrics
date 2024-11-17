@@ -12,7 +12,7 @@ exporters:
   - gomod:
       github.com/open-telemetry/opentelemetry-collector-contrib/exporter/clickhouseexporter v0.113.0
   - gomod:
-      github.com/zeelrupapara/clickhouse-metrics-exportor v0.1.0
+      github.com/zeelrupapara/clickhousemetrics v0.0.0-20241117172148-2e6852aff301
 
 processors:
   - gomod:

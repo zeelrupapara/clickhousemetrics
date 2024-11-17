@@ -5,7 +5,7 @@ import (
 )
 
 var (
-	Type      = component.MustNewType("clickhouse")
+	Type      = component.MustNewType("clickhousemetrics")
 	ScopeName = "github.com/zeelrupapara/clickhousemetrics"
 )
 
