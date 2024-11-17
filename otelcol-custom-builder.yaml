@@ -10,7 +10,7 @@ exporters:
   - gomod:
       go.opentelemetry.io/collector/exporter/otlpexporter v0.113.0
   - gomod:
-      github.com/zeelrupapara/clickhousemetrics v0.0.0-20241117181505-49ae8dd3918d
+      github.com/zeelrupapara/clickhousemetrics v0.0.0-20241117181939-dc9ca377c0f7
 
 processors:
   - gomod:

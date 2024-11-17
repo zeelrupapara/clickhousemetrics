@@ -67,7 +67,6 @@ func createMatrixTable(ctx context.Context, cfg *Config, db *sql.DB) error {
 	const metricsTable = `
   CREATE TABLE IF NOT EXISTS %s (
     MetricName String,
-    StartTime DateTime,
     MetricUnit String CODEC(ZSTD(1)),
     StartTimeUnix DateTime64(9) CODEC(Delta, ZSTD(1)),
     TimeUnix DateTime64(9) CODEC(Delta, ZSTD(1)),
@@ -163,7 +162,7 @@ func (s *Metrics) Insert(ctx context.Context, db *sql.DB) error {
 	if s.count == 0 {
 		return nil
 	}
-	const insertQuery = "INSERT INTO metrics (MetricName, StartTime, MetricUnit, StartTimeUnix, TimeUnix, Value) VALUES(?, ?, ?, ?, ?, ?)"
+	const insertQuery = "INSERT INTO metrics (MetricName, MetricUnit, StartTimeUnix, TimeUnix, Value) VALUES(?, ?, ?, ?, ?)"
 	start := time.Now()
 	err := doWithTx(ctx, db, func(tx *sql.Tx) error {
 		statement, err := tx.PrepareContext(ctx, insertQuery)
