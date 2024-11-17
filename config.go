@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
+
+	_ "github.com/ClickHouse/clickhouse-go/v2"
 )
 
 var errConfigInvalidEndpoint = errors.New("endpoint must be url format")
@@ -36,6 +38,8 @@ func (cfg *Config) buildDSN() (string, error) {
 	return dsnURL.String(), nil
 }
 
+var driverName = "clickhouse" // for testing
+
 func (cfg *Config) buildDB() (*sql.DB, error) {
 	dsn, err := cfg.buildDSN()
 	if err != nil {
@@ -45,7 +49,7 @@ func (cfg *Config) buildDB() (*sql.DB, error) {
 	// ClickHouse sql driver will read clickhouse settings from the DSN string.
 	// It also ensures defaults.
 	// See https://github.com/ClickHouse/clickhouse-go/blob/08b27884b899f587eb5c509769cd2bdf74a9e2a1/clickhouse_std.go#L189
-	conn, err := sql.Open("clickhouse", dsn)
+	conn, err := sql.Open(driverName, dsn)
 	if err != nil {
 		return nil, err
 	}
